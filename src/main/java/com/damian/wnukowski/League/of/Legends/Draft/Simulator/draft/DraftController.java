@@ -19,12 +19,12 @@ public class DraftController {
     }
 
     @RequestMapping(method = RequestMethod.POST, path="/createDraft")
-    Draft.DraftUrl createDraft(@RequestParam String team1, @RequestParam String team2, @RequestParam String matchName ){
+    public Draft.DraftUrl createDraft(@RequestParam String team1, @RequestParam String team2, @RequestParam String matchName ){
         return draftService.createDraft(team1, team2, matchName);
     }
 
     @PostMapping(path = "/{draftUUID}/{captainUUID}/ready")
-    ResponseEntity setReady(@PathVariable UUID draftUUID, @PathVariable UUID captainUUID){
+    public ResponseEntity setReady(@PathVariable UUID draftUUID, @PathVariable UUID captainUUID){
         if(draftService.setReady(draftUUID, captainUUID)){
             return new ResponseEntity(HttpStatus.OK);
         }
@@ -32,13 +32,13 @@ public class DraftController {
     }
 
     @GetMapping(path = "/{draftUUID}")
-    Draft getDraft(@PathVariable UUID draftUUID){
+    public Draft getDraft(@PathVariable UUID draftUUID){
         return draftService.getDraftState(draftUUID);
 
     }
 
     @GetMapping(path = "/showAllDrafts")
-    List<Draft> showAllDrafts(){
+    public List<Draft> showAllDrafts(){
         return draftService.showAllDrafts();
     }
 }
