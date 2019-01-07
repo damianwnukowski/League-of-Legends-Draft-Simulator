@@ -3,7 +3,6 @@ package com.damian.wnukowski.League.of.Legends.Draft.Simulator.draft;
 import com.damian.wnukowski.League.of.Legends.Draft.Simulator.champions.Champions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.*;
 
 @Service
@@ -24,7 +23,20 @@ public class DraftService {
         return draft.getDraftUrl();
     }
 
-    //TODO add authentication or remove it (not feature to show all drafts on the server)
+    public String choose(UUID draftUUID, UUID captainUUID, int turn, String champion){
+        Draft draft = drafts.get(draftUUID);
+        if(draft == null) return "No draft with such id";
+        if(!draft.isTeam2Ready() || !draft.isTeam1Ready()) return "Teams aren't ready";
+        return draft.choose(captainUUID, turn, champion, champions);
+    }
+
+    public String whichTeam(UUID draftUUID, UUID captainUUID){
+        Draft d = drafts.get(draftUUID);
+        if(d==null)
+            return "none";
+        return d.whichTeam(captainUUID);
+    }
+
     public List<Draft> showAllDrafts(){
         ArrayList<Draft> result = new ArrayList<>();
         for (Map.Entry<UUID, Draft> draft : drafts.entrySet() ) {
@@ -54,6 +66,6 @@ public class DraftService {
         draft.setTurn(1);
         draft.setTimer(new Timer());
         draft.setLastRefersh(System.currentTimeMillis());
-        draft.getTimer().schedule(new DoOnChoosingNothing(draft, champions), 27000);
+        draft.getTimer().schedule(new DoOnChoosingNothing(draft, champions), draft.CHOOSING_TIME+draft.DELAY_TIME);
     }
 }
