@@ -105,6 +105,7 @@ Skarner
 Sona
 Soraka
 Swain
+Sylas
 Syndra
 Tahm Kench
 Taliyah

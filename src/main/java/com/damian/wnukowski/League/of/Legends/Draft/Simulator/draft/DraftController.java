@@ -2,6 +2,8 @@ package com.damian.wnukowski.League.of.Legends.Draft.Simulator.draft;
 
 
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -46,8 +48,8 @@ public class DraftController {
 
     }
 
-    /*@GetMapping(path = "/showAllDrafts")
+    @GetMapping(path = "/showAllDrafts")
     public List<Draft> showAllDrafts(){
         return draftService.showAllDrafts();
-    }*/
+    }
 }
