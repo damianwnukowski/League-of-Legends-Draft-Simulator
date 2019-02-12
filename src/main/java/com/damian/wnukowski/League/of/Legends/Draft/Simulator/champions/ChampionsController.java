@@ -13,7 +13,7 @@ public class ChampionsController {
         this.champions = champions;
     }
 
-    @GetMapping(path = "/api/champions/")
+    @GetMapping(path = "/api/champions")
     public Champions getAllChampions(){
         return this.champions;
     }

@@ -16,6 +16,7 @@ public class DraftService {
         this.champions = champions;
     }
 
+
     public Draft.DraftUrl createDraft(String team1, String team2, String matchName){
         UUID randomId = UUID.randomUUID();
         Draft draft = new Draft(team1, team2, randomId , matchName);
@@ -34,6 +35,9 @@ public class DraftService {
         Draft d = drafts.get(draftUUID);
         if(d==null)
             return "none";
+        if(captainUUID == null)
+            return "audience";
+
         return d.whichTeam(captainUUID);
     }
 

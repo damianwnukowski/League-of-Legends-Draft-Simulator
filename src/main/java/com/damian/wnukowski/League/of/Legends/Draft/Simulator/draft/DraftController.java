@@ -35,18 +35,29 @@ public class DraftController {
         return draftService.choose(draftUUID, captainUUID, turn, champion);
     }
 
-
     //So frontend can know based on captainUUID which team he is and do actions based on that(like activating buttons)
-    @GetMapping(path = "/{draftUUID}/{captainUUID}")
+    @GetMapping(path = "/{draftUUID}/{captainUUID}/whichTeam")
     public String whichTeam(@PathVariable UUID draftUUID, @PathVariable UUID captainUUID){
         return draftService.whichTeam(draftUUID, captainUUID);
+    }
+
+    //So frontend can know based on captainUUID which team he is and do actions based on that(like activating buttons)
+    @GetMapping(path = "/{draftUUID}/whichTeam")
+    public String whichTeam(@PathVariable UUID draftUUID){
+        return draftService.whichTeam(draftUUID, null);
     }
 
     @GetMapping(path = "/{draftUUID}")
     public Draft getDraft(@PathVariable UUID draftUUID){
         return draftService.getDraftState(draftUUID);
-
     }
+
+    //in case of url with two UUID
+    @GetMapping(path = "/{draftUUID}/{captainUUID}")
+    public Draft getDraft2(@PathVariable UUID draftUUID, @PathVariable UUID captainUUID){
+        return draftService.getDraftState(draftUUID);
+    }
+
 
     @GetMapping(path = "/showAllDrafts")
     public List<Draft> showAllDrafts(){
